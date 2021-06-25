@@ -31,10 +31,21 @@
     <div class="exec-box" style="margin: 10px 0px 10px 0px ">
       <el-button-group>
         <el-button size="mini" type="success" @click=addBtnClick>新建</el-button>
-        <el-button size="mini" type="danger" :disabled="selectIds.length<=0" @click="batchDel">批量删除</el-button>
         <el-button size="mini" type="success">导入Excel</el-button>
         <el-button size="mini" type="warning">导出Excel</el-button>
       </el-button-group>
+      <el-popconfirm
+          style="margin: 2px 0px 0px 5px"
+          confirm-button-text='确定'
+          cancel-button-text='不用了'
+          icon="el-icon-info"
+          icon-color="red"
+          title="确定删除这么多项吗？"
+          @confirm="batchDel"
+      >
+        <el-button type="danger"></el-button>
+        <el-button slot="reference" type="danger" size="mini" :disabled="selectIds.length<=0">批量删除</el-button>
+      </el-popconfirm>
     </div>
 
     <!--      数据表格-->
@@ -82,7 +93,7 @@
             align="center"
             label="操作">
           <template v-slot="obj">
-            <el-button type="primary" icon="el-icon-edit" circle  @click=findById(obj.row.id)></el-button>
+            <el-button type="primary" icon="el-icon-edit" circle @click=findById(obj.row.id)></el-button>
             <el-popconfirm
                 style="margin-left: 5px"
                 confirm-button-text='确定'
@@ -92,7 +103,7 @@
                 title="确定删除吗？"
                 @confirm="delById(obj.row.id)"
             >
-              <el-button type="danger" ></el-button>
+              <el-button type="danger"></el-button>
               <el-button slot="reference" type="danger" icon="el-icon-delete" circle></el-button>
             </el-popconfirm>
           </template>
@@ -118,22 +129,22 @@
         :visible.sync="createDialog"
         width="30%">
       <!--      内容-->
-      <el-form ref="form" :model="formData" size="mini" label-width="80px">
+      <el-form ref="form" :rules="rules" :model="formData" size="mini" label-width="80px">
         <el-row :gutter="20">
           <el-col :span="12">
-            <el-form-item label="品牌名称">
+            <el-form-item label="品牌名称" prop="brandName">
               <el-input v-model="formData.brandName"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="品牌网址">
+            <el-form-item label="品牌网址" prop="brandSite">
               <el-input v-model="formData.brandSite"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row :gutter="20">
           <el-col :span="12">
-            <el-form-item label="品牌图标">
+            <el-form-item label="品牌图标" prop="brandLogo">
               <el-upload
                   class="avatar-uploader"
                   action="https://jsonplaceholder.typicode.com/posts/"
@@ -145,7 +156,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="品牌描述">
+            <el-form-item label="品牌描述" prop="brandDesc">
               <el-input type="textarea" v-model="formData.brandDesc"></el-input>
             </el-form-item>
           </el-col>
@@ -156,214 +167,12 @@
         <el-button type="primary" @click="createDialog = false,addOrEditBtn()" size="mini">确 定</el-button>
       </span>
     </el-dialog>
-
-
   </div>
 </template>
 
-<script>
-import brand from "@/api/brand";
+<script src="./index.js"></script>
 
-export default {
-  name: "index",
-  data() {
-    return {
-      //修改表单
-      editFormData: {
-        brandLogo: '',
-        brandDesc: '',
-        brandName: '',
-        brandSite: '',
-      },
-      //批量删除的id
-      selectIds: [],
-      //上传表单数据
-      formData: {
-        //上传logo
-        brandLogo: '',
-        brandDesc: '',
-        brandName: '',
-        brandSite: '',
-      },
-      //搜索表单数据
-      searchForm: {
-        currentPage: 1,
-        pageSize: 8,
-        brandName: '',
-        brandDesc: ''
-      },
-      pickerOptions: {
-        shortcuts: [{
-          text: '最近一周',
-          onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-            picker.$emit('pick', [start, end]);
-          }
-        }, {
-          text: '最近一个月',
-          onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-            picker.$emit('pick', [start, end]);
-          }
-        }, {
-          text: '最近三个月',
-          onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-            picker.$emit('pick', [start, end]);
-          }
-        }]
-      },
-      //所选时间
-      choseDate: '',
-      tableData: [],
-      total: 0,
-      search: '',
-      //开启关闭上传模态框
-      createDialog: false,
-      //开启关闭修改模态框
-      editDialog: false,
-    }
-
-  },
-
-  created() {
-    this.searchPage();
-  },
-
-  methods: {
-    //条件分页查询
-    async searchPage() {
-      let response = await brand.searchPage(this.searchForm);
-      // console.log(response)
-      this.total = response.total;
-      this.tableData = response.data;
-    },
-    //---------------------------------页面事件------------------------------------------------
-    //分页点击事件
-    pageChange(page) {
-      this.searchForm.currentPage = page;
-      this.searchPage();
-    },
-    //当用户选择查询时间
-    choseDateChange(val) {
-      console.log(val)
-      this.searchForm.startTime = val[0];
-      this.searchForm.endTime = val[1];
-    },
-    //秦空搜索表单
-    resetForm() {
-      this.searchForm.brandName = '';
-      this.searchForm.brandDesc = '';
-      this.searchForm.startTime = '';
-      this.searchForm.endTime = '';
-      this.searchForm.currentPage = 1;
-      this.searchForm.pageSize = 8;
-      this.choseDate = "";
-      // this.searchPage();
-    },
-    //删除单个
-    async delById(id) {
-      // console.log(id)
-      await brand.delById(id);
-      this.searchPage();
-    },
-    //删除多个
-    selectChange(e) {
-      this.selectIds = e.map(item => item.id);
-    },
-    async batchDel() {
-      await brand.batchDel(this.selectIds);
-      this.searchPage();
-    },
-    //点击新建按钮
-    addBtnClick() {
-      this.createDialog = true;
-      //清空表单
-      this.formData.brandLogo = '';
-      this.formData.brandDesc = '';
-      this.formData.brandName = '';
-      this.formData.brandSite = '';
-    },
-    //新建品牌方法
-    async addOrEditBtn() {
-      if (this.formData.id) {
-        //修改
-        await brand.updateBrand(this.formData);
-      } else {
-        //添加
-        await brand.addBrand(this.formData);
-      }
-      this.searchPage();
-    },
-    // findById
-    async findById(id){
-      this.createDialog = true;
-      this.formData = await brand.findById(id);
-    },
-
-    //-----------------------------上传模态框---------------------------------
-    //选择图片
-    choseImg(e) {
-      let fileReader = new FileReader();
-      fileReader.readAsDataURL(e.file)
-      fileReader.onloadend = (response) => {
-        // this.imageUrl = response.target.result;
-        this.formData.brandLogo = response.target.result;
-      }
-    },
-
-
-  }
-
-
-}
-</script>
-
-<style lang="scss">
-.el-scrollbar {
-  height: 88%;
-}
-
-.brand-wrapper {
-  height: 100%;
-}
-
-/*隐藏地步滚动条*/
-.el-scrollbar__wrap {
-  overflow-x: hidden;
-}
-
-.avatar-uploader .el-upload {
-  border: 1px dashed #d9d9d9;
-  border-radius: 6px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-
-.avatar-uploader .el-upload:hover {
-  border-color: #409EFF;
-}
-
-.avatar-uploader-icon {
-  font-size: 28px;
-  color: #8c939d;
-  width: 120px;
-  height: 40px;
-  line-height: 40px;
-  text-align: center;
-}
-
-.avatar {
-  width: 120px;
-  height: 40px;
-  display: block;
-}
-
+<style long="scss">
+/*<!--直接src引入报错-->*/
+@import "index.scss";
 </style>

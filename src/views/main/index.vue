@@ -58,7 +58,7 @@
               </template>
               <el-menu-item index="3-1">
                 <i class="el-icon-position"></i>
-                <span slot="title">品牌管理</span>
+                <span slot="title" >品牌管理</span>
               </el-menu-item>
               <el-menu-item index="3-2">
                 <i class="el-icon-position"></i>
@@ -118,9 +118,14 @@
 </template>
 
 <script>
+
+
 export default {
   name: "index",
-  methods: {}
+  methods: {
+
+
+  }
 }
 </script>
 
