@@ -22,7 +22,7 @@
                         :picker-options="pickerOptions">
         </el-date-picker>
         <el-form-item style="margin-left: 10px">
-          <el-button type="primary" @click="searchPage">查询</el-button>
+          <el-button type="primary" @click="searchUser">查询</el-button>
           <el-button type="warning" @click="resetForm">重置</el-button>
         </el-form-item>
       </el-form>
@@ -93,6 +93,7 @@
             align="center"
             label="操作">
           <template v-slot="obj">
+            <!--修改按钮-->
             <el-button type="primary" icon="el-icon-edit" circle @click=findById(obj.row.id)></el-button>
             <el-popconfirm
                 style="margin-left: 5px"
@@ -103,7 +104,7 @@
                 title="确定删除吗？"
                 @confirm="delById(obj.row.id)"
             >
-              <el-button type="danger"></el-button>
+              <!--删除按钮-->
               <el-button slot="reference" type="danger" icon="el-icon-delete" circle></el-button>
             </el-popconfirm>
           </template>

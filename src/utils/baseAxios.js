@@ -5,7 +5,7 @@ import Notification from "element-ui/packages/notification/src/main";
 
 const tong = axios.create({
     baseURL: 'http://localhost:9999/',
-    timeout:3600,
+    // timeout:3600,
     withCredentials: true,
 });
 

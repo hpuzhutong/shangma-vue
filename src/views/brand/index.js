@@ -92,9 +92,16 @@ export default {
         //条件分页查询
         async searchPage() {
             let response = await brand.searchPage(this.searchForm);
-            // console.log(response)
             this.total = response.total;
             this.tableData = response.data;
+        },
+        //查询按钮
+        searchUser(){
+            if (this.searchForm.brandDesc || this.searchForm.brandName){
+                //不设置会出现搜索bug
+                this.searchForm.currentPage = 1;
+            }
+            this.searchPage();
         },
         //---------------------------------页面事件------------------------------------------------
         //分页点击事件
@@ -108,20 +115,14 @@ export default {
             this.searchForm.startTime = val[0];
             this.searchForm.endTime = val[1];
         },
-        //秦空搜索表单
+        //充值按钮   清空表单
         resetForm() {
             this.searchForm = {
                 currentPage: 1,
                 pageSize: 8,
             };
-            // this.searchForm.brandName = '';
-            // this.searchForm.brandDesc = '';
-            // this.searchForm.startTime = '';
-            // this.searchForm.endTime = '';
-            // this.searchForm.currentPage = 1;
-            // this.searchForm.pageSize = 8;
             this.choseDate = "";
-            // this.searchPage();
+            this.searchPage();
         },
         //删除单个
         async delById(id) {
@@ -140,6 +141,7 @@ export default {
         //点击新建按钮
         addBtnClick() {
             this.createDialog = true;
+            //清空表单验证效果
             this.$refs.form.resetFields();
             //清空表单
             this.formData = {};
@@ -168,6 +170,8 @@ export default {
         },
         // findById
         async findById(id) {
+            //清空表单验证效果
+            this.$refs.form.resetFields();
             this.createDialog = true;
             this.formData = await brand.findById(id);
         },

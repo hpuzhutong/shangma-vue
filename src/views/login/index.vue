@@ -1,6 +1,8 @@
 <template>
-  <div id="app">
-    <h1>登陆页面</h1>
+  <div id="login-box">
+    <el-container>
+      <el-main>Main</el-main>
+    </el-container>
   </div>
 </template>
 
@@ -10,6 +12,14 @@ export default {
 }
 </script>
 
-<style scoped>
+<style long="scss">
+
+.el-main {
+  background-color: #E9EEF3;
+  color: #333;
+  text-align: center;
+  line-height: 160px;
+}
+
 
 </style>
