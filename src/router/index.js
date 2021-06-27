@@ -25,6 +25,11 @@ const routes = [
                 name: '品牌管理页面',
                 component: () => import('../views/brand/index.vue')
             },
+            {
+                path: 'admin',
+                name: '品牌管理页面',
+                component: () => import('../views/admin/index.vue')
+            },
         ]
     }
 ]

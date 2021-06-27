@@ -6,7 +6,7 @@
         <!--    顶部Logo-->
         <div class="aside-top">
           <img src="../../assets/logo.png" alt="">
-          <span>垃圾品牌集中营</span>
+          <span style="color: #FFD700;font-size: x-large">怡红院品牌管理</span>
         </div>
 
         <!--    导航栏-->
