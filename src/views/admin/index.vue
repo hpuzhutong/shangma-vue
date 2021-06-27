@@ -10,7 +10,7 @@
           <el-input v-model="searchForm.adminPhone" placeholder="请输入手机号"></el-input>
         </el-form-item>
         <el-form-item label="性别">
-          <el-select v-model="searchForm.gender" placeholder="请选择">
+          <el-select v-model="searchForm.gender" placeholder="请选择" style="width: 90px">
             <el-option label="男" value="0"></el-option>
             <el-option label="女" value="1"></el-option>
           </el-select>
@@ -271,12 +271,15 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="是否超管" prop="isAdmin">
-              <el-switch
-                  v-model="formData.isAdmin"
-                  active-color="#13ce66"
-                  inactive-color="#ff4949">
-              </el-switch>
+            <el-form-item label="分配角色" prop="roleName">
+              <el-select v-model="formData.roleIds" multiple placeholder="请选择身份">
+                <el-option
+                    v-for="role in roleList"
+                    :key="role.id"
+                    :label="role.roleName"
+                    :value="role.id">
+                </el-option>
+              </el-select>
             </el-form-item>
           </el-col>
         </el-row>

@@ -10,6 +10,11 @@ const routes = [
         name: '登陆页面',
         component: () => import('../views/login/index.vue')
     },
+    // {
+    //     path: '/register',
+    //     name: '注册页面',
+    //     component: () => import('../views/register/index.vue')
+    // },
     {
         path: '/main',
         name: '主页面',
@@ -29,6 +34,11 @@ const routes = [
                 path: 'admin',
                 name: '品牌管理页面',
                 component: () => import('../views/admin/index.vue')
+            },
+            {
+                path: 'role',
+                name: '品牌管理页面',
+                component: () => import('../views/role/index.vue')
             },
         ]
     }

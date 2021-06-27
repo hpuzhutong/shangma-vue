@@ -1,14 +1,6 @@
 import tong from "@/utils/baseAxios";
 
-let admin = {
-
-    /**
-     * 拿到所有的角色
-     * @returns {Promise<AxiosResponse<any>>}
-     */
-    getAllRoles(){
-        return tong.get(`role`)
-    },
+let role = {
 
     /**
      * 条件分页查询
@@ -16,11 +8,11 @@ let admin = {
      * @returns {Promise<AxiosResponse<any>>}
      */
     searchPage(entity) {
-        return tong.get(`admin/searchPage`, {params: entity})
+        return tong.get(`role/searchPage`, {params: entity})
     },
 
     findById(id) {
-        return tong.get(`admin/${id}`)
+        return tong.get(`role/${id}`)
     },
 
     /**
@@ -28,8 +20,8 @@ let admin = {
      * @param entity
      * @returns {Promise<AxiosResponse<any>>}
      */
-    addBrand(entity) {
-        return tong.post(`admin`,  entity)
+    addRole(entity) {
+        return tong.post(`role`,  entity)
     },
 
     /**
@@ -38,7 +30,7 @@ let admin = {
      * @returns {Promise<AxiosResponse<any>>}
      */
     delById(id) {
-        return tong.delete(`admin/${id}`,)
+        return tong.delete(`role/${id}`,)
     },
 
     /**
@@ -47,17 +39,17 @@ let admin = {
      * @returns {Promise<AxiosResponse<any>>}
      */
     batchDel(ids) {
-        return tong.delete(`admin/batch/${ids}`)
+        return tong.delete(`role/batch/${ids}`)
     },
 
     /**
      * 修改品牌信息
      * @param formData
      */
-    updateBrand(entity) {
-        return tong.put(`admin`,entity)
+    updateRole(entity) {
+        return tong.put(`role`,entity)
     },
 
 
 }
-export default admin;
+export default role;

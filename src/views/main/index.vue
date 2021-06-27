@@ -6,7 +6,7 @@
         <!--    顶部Logo-->
         <div class="aside-top">
           <img src="../../assets/logo.png" alt="">
-          <span style="color: #FFD700;font-size: x-large">怡红院品牌管理</span>
+          <span style="color: #FFD700;font-size: x-large">怡红院</span>
         </div>
 
         <!--    导航栏-->
@@ -14,8 +14,9 @@
         <el-scrollbar style="height: 93%">
           <el-menu
               default-active="1"
-              class="el-menu-vertical-demo">
-            <el-menu-item index="1">
+              class="el-menu-vertical-demo"
+              router="ture">
+            <el-menu-item index="">
               <i class="el-icon-s-flag"></i>
               <span slot="title">系统首页</span>
             </el-menu-item>
@@ -24,11 +25,11 @@
                 <i class="el-icon-menu"></i>
                 <span>系统管理</span>
               </template>
-              <el-menu-item index="2-1">
+              <el-menu-item index="admin">
                 <i class="el-icon-position"></i>
                 <span slot="title">员工管理</span>
               </el-menu-item>
-              <el-menu-item index="2-2">
+              <el-menu-item index="role">
                 <i class="el-icon-position"></i>
                 <span slot="title">角色管理</span>
               </el-menu-item>
@@ -56,7 +57,7 @@
                 <i class="el-icon-menu"></i>
                 <span>商品相关</span>
               </template>
-              <el-menu-item index="3-1">
+              <el-menu-item index="brand">
                 <i class="el-icon-position"></i>
                 <span slot="title" >品牌管理</span>
               </el-menu-item>
