@@ -32,13 +32,18 @@ const routes = [
             },
             {
                 path: 'admin',
-                name: '品牌管理页面',
+                name: '员工管理页面',
                 component: () => import('../views/admin/index.vue')
             },
             {
                 path: 'role',
-                name: '品牌管理页面',
+                name: '角色管理页面',
                 component: () => import('../views/role/index.vue')
+            },
+            {
+                path: 'menu',
+                name: '菜单（权限）管理',
+                component: () => import('../views/menu/index.vue')
             },
         ]
     }

@@ -16,7 +16,7 @@
               default-active="1"
               class="el-menu-vertical-demo"
               router="ture">
-            <el-menu-item index="">
+            <el-menu-item index="/main/index">
               <i class="el-icon-s-flag"></i>
               <span slot="title">系统首页</span>
             </el-menu-item>
@@ -33,7 +33,7 @@
                 <i class="el-icon-position"></i>
                 <span slot="title">角色管理</span>
               </el-menu-item>
-              <el-menu-item index="2-3">
+              <el-menu-item index="menu">
                 <i class="el-icon-position"></i>
                 <span slot="title">权限管理</span>
               </el-menu-item>
