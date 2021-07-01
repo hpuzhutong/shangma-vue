@@ -35,8 +35,6 @@
     <div class="exec-box" style="margin: 10px 0px 10px 0px ">
       <el-button-group>
         <el-button size="mini" type="success" @click=addBtnClick>新建</el-button>
-        <el-button size="mini" type="success">导入Excel</el-button>
-        <el-button size="mini" type="warning">导出Excel</el-button>
       </el-button-group>
       <!--      <el-popconfirm
                 style="margin: 2px 0px 0px 5px"
@@ -150,8 +148,8 @@
             <el-form-item label="权限类型" prop="menuType">
               <el-radio-group v-model="formData.menuType" size="mini">
                 <el-radio-button label="1">目录</el-radio-button>
-                <el-radio-button label="2">按钮</el-radio-button>
-                <el-radio-button label="3">菜单</el-radio-button>
+                <el-radio-button label="2">菜单</el-radio-button>
+                <el-radio-button label="3">按钮</el-radio-button>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -161,7 +159,7 @@
         </el-form-item>
         <el-row :gutter="20">
           <el-col :span="12">
-            <el-form-item label="权限名称" prop="menuTitle">
+            <el-form-item label="权限标题" prop="menuTitle">
               <el-input v-model="formData.menuTitle"></el-input>
             </el-form-item>
           </el-col>
@@ -173,26 +171,26 @@
           </el-col>
         </el-row>
         <el-row :gutter="20">
-          <el-col :span="12" v-if="formData.menuType!=3">
-            <el-form-item label="路由地址" prop="menuRouter">
-              <el-input v-model="formData.menuRouter"></el-input>
-            </el-form-item>
-          </el-col>
           <el-col :span="12">
             <el-form-item label="权限标识" prop="permSign" v-if="formData.menuType!=1">
               <el-input v-model="formData.permSign"></el-input>
             </el-form-item>
           </el-col>
+          <el-col :span="12" v-if="formData.menuType!=3">
+            <el-form-item label="路由地址" prop="menuRouter">
+              <el-input v-model="formData.menuRouter"></el-input>
+            </el-form-item>
+          </el-col>
         </el-row>
         <el-row :gutter="20" v-if="formData.menuType==2">
           <el-col :span="12">
-            <el-form-item label="组件名称" prop="componentName">
-              <el-input v-model="formData.componentName"></el-input>
+            <el-form-item label="组件地址" prop="componentPath">
+              <el-input v-model="formData.componentPath"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="组件地址" prop="componentPath">
-              <el-input v-model="formData.componentPath"></el-input>
+            <el-form-item label="组件名称" prop="componentName">
+              <el-input v-model="formData.componentName"></el-input>
             </el-form-item>
           </el-col>
         </el-row>

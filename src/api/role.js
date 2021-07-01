@@ -4,8 +4,6 @@ let role = {
 
     /**
      * 条件分页查询
-     * @param entity
-     * @returns {Promise<AxiosResponse<any>>}
      */
     searchPage(entity) {
         return tong.get(`role/searchPage`, {params: entity})
@@ -17,17 +15,13 @@ let role = {
 
     /**
      * 新建一个品牌
-     * @param entity
-     * @returns {Promise<AxiosResponse<any>>}
      */
     addRole(entity) {
-        return tong.post(`role`,  entity)
+        return tong.post(`role`, entity)
     },
 
     /**
      * 通过id单个删除
-     * @param val
-     * @returns {Promise<AxiosResponse<any>>}
      */
     delById(id) {
         return tong.delete(`role/${id}`,)
@@ -35,8 +29,6 @@ let role = {
 
     /**
      * 批量删除
-     * @param ids
-     * @returns {Promise<AxiosResponse<any>>}
      */
     batchDel(ids) {
         return tong.delete(`role/batch/${ids}`)
@@ -44,10 +36,30 @@ let role = {
 
     /**
      * 修改品牌信息
-     * @param formData
      */
     updateRole(entity) {
-        return tong.put(`role`,entity)
+        return tong.put(`role`, entity)
+    },
+
+    /**
+     * 获取所有权限
+     */
+    getAllMenuTreeData() {
+        return tong.get(`menu/getTreeData`)
+    },
+
+    /**
+     * 给角色赋予权限
+     */
+    setRoleMenu(roleId,menuIds) {
+        return tong.post(`role/${roleId}/menu/${menuIds}`)
+    },
+
+    /**
+     *  获取角色拥有的权限
+     */
+    getMenusByRoleId(roleId) {
+        return tong.get(`role/${roleId}/menu`)
     },
 
 

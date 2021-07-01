@@ -111,6 +111,7 @@
               </el-form>
             </template>
           </el-table-column>
+
           <el-table-column
               align="center"
               type="selection"
@@ -176,26 +177,28 @@
           </el-table-column>
         </el-table>
       </template>
-      <el-table-column
-          align="center"
-          label="操作">
-        <template v-slot="obj">
-          <!--修改按钮-->
-          <el-button type="primary" icon="el-icon-edit" circle @click=findById(obj.row.id)></el-button>
-          <el-popconfirm
-              style="margin-left: 5px"
-              confirm-button-text='确定'
-              cancel-button-text='不用了'
-              icon="el-icon-info"
-              icon-color="red"
-              title="确定删除吗？"
-              @confirm="delById(obj.row.id)"
-          >
-            <!--删除按钮-->
-            <el-button slot="reference" type="danger" icon="el-icon-delete" circle></el-button>
-          </el-popconfirm>
-        </template>
-      </el-table-column>
+
+
+      <!--      <el-table-column-->
+      <!--          align="center"-->
+      <!--          label="操作">-->
+      <!--        <template v-slot="obj">-->
+      <!--          &lt;!&ndash;修改按钮&ndash;&gt;-->
+      <!--          <el-button type="primary" icon="el-icon-edit" circle @click=findById(obj.row.id)></el-button>-->
+      <!--          <el-popconfirm-->
+      <!--              style="margin-left: 5px"-->
+      <!--              confirm-button-text='确定'-->
+      <!--              cancel-button-text='不用了'-->
+      <!--              icon="el-icon-info"-->
+      <!--              icon-color="red"-->
+      <!--              title="确定删除吗？"-->
+      <!--              @confirm="delById(obj.row.id)"-->
+      <!--          >-->
+      <!--            &lt;!&ndash;删除按钮&ndash;&gt;-->
+      <!--            <el-button slot="reference" type="danger" icon="el-icon-delete" circle></el-button>-->
+      <!--          </el-popconfirm>-->
+      <!--        </template>-->
+      <!--      </el-table-column>-->
 
       <!--      分页区域-->
       <div class="pageHelper-box" style="margin: 20px ;text-align: center">

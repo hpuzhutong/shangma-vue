@@ -63,12 +63,22 @@ export default {
                 ],
 
             },
+            /*
+            * 分配权限
+            * */
+            defaultProps: {
+                children: 'children',
+                label: 'menuTitle'
+            },
+            menuList: [],
+            roleId: '',
         }
 
     },
 
     created() {
         this.searchPage();
+        this.getAllTreeData();
     },
 
     methods: {
@@ -79,8 +89,8 @@ export default {
             this.tableData = response.data;
         },
         //查询按钮
-        searchUser(){
-            if (this.searchForm.roleName){
+        searchUser() {
+            if (this.searchForm.roleName) {
                 //不设置会出现搜索bug
                 this.searchForm.currentPage = 1;
             }
@@ -163,7 +173,49 @@ export default {
         },
 
 
+        /*
+        获取所有的权限
+         */
+        async getAllTreeData() {
+            this.menuList = await role.getAllMenuTreeData();
+        },
 
+        /*
+        给行设置点击事件
+         */
+        rowClick(row) {
+            this.roleId = row.id
+            this.getMenusByRoleId()
+        },
+
+        /*
+        设置角色的权限
+         */
+        async setRoleMenu() {
+            //拿到为这个角色要添加的权限的id
+            let id = this.$refs.tree.getCheckedKeys()
+            let id1 = this.$refs.tree.getHalfCheckedKeys()
+            let ids = id.concat(id1)
+            await role.setRoleMenu(this.roleId, ids);
+            // 设置成功提示message
+            this.$message({
+                showClose: true,
+                message: '权限设置成功',
+                type: 'success'
+            });
+            //刷新页面去除选中的行  清空权限
+            this.searchPage()
+            this.$refs.tree.setCheckedKeys([]);
+        },
+
+        /*
+        获取角色对应的权限
+         */
+        async getMenusByRoleId() {
+            this.menuList = await role.getMenusByRoleId(this.roleId)
+
+            this.$refs.tree.setCheckedKeys();
+        }
 
 
     }

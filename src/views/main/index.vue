@@ -14,6 +14,7 @@
         <el-scrollbar style="height: 93%">
           <el-menu
               default-active="1"
+              background-color="#CCE8CF"
               class="el-menu-vertical-demo"
               router="ture">
             <el-menu-item index="/main/index">
@@ -105,7 +106,9 @@
       <!--      头区域-->
       <el-container>
         <el-header height="60px">
-          <el-button plain size="mini" style="margin-right: 35px">退出</el-button>
+
+
+
         </el-header>
         <!--      中间区域-->
         <el-main>
@@ -142,7 +145,7 @@ export default {
 }
 
 .el-header {
-  background-color: #409EFF;
+  background-color: #CCE8CF;
   color: #333;
   text-align: right;
   line-height: 60px;
@@ -150,13 +153,13 @@ export default {
 }
 
 .el-aside {
-  background-color: #FFF;
-  color: #FFF;
+  background-color: #CCE8CF;
+  color: #CCE8CF;
 
   .aside-top {
     height: 60px;
     line-height: 60px;
-    background-color: #409EFF;
+    background-color: #000000;
   }
 
   .aside-top {
@@ -198,7 +201,7 @@ export default {
     height: 100%;
     padding: 20px 5px 0px 15px;
     box-sizing: border-box;
-    background-color: #FFFFFF;
+    background-color: #CCE8CF;
   }
 
 }
