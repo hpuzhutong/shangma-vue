@@ -38,23 +38,24 @@
         <el-button size="mini" type="success">导入Excel</el-button>
         <el-button size="mini" type="warning">导出Excel</el-button>
       </el-button-group>
-      <el-popconfirm
-          style="margin: 2px 0px 0px 5px"
-          confirm-button-text='确定'
-          cancel-button-text='不用了'
-          icon="el-icon-info"
-          icon-color="red"
-          title="确定删除这么多项吗？"
-          @confirm="batchDel"
-      >
-        <el-button type="danger"></el-button>
-        <el-button slot="reference" type="danger" size="mini" :disabled="selectIds.length<=0">批量删除</el-button>
-      </el-popconfirm>
+      <!--      <el-popconfirm
+                style="margin: 2px 0px 0px 5px"
+                confirm-button-text='确定'
+                cancel-button-text='不用了'
+                icon="el-icon-info"
+                icon-color="red"
+                title="确定删除这么多项吗？"
+                @confirm="batchDel"
+            >
+       <el-button slot="reference" type="danger" size="mini"  :disabled="selectId==-1">批量删除</el-button>
+            </el-popconfirm>-->
     </div>
 
     <!--      数据表格-->
     <el-scrollbar>
       <el-table
+          highlight-current-row
+          @row-click="rowClick"
           :data="tableData"
           row-key="id"
           :tree-props="{children:'children'}"
@@ -68,11 +69,19 @@
             align="center"
             label="权限类型"
             prop="menuType">
+          <template v-slot="obj">
+            <el-tag v-if="obj.row.menuType == 1">目录</el-tag>
+            <el-tag type="success" v-if="obj.row.menuType == 2">菜单</el-tag>
+            <el-tag type="warning" v-if="obj.row.menuType == 3">按钮</el-tag>
+          </template>
         </el-table-column>
         <el-table-column
             align="center"
             label="权限图标"
             prop="menuIcon">
+          <template v-slot="obj">
+            <e-icon :icon-name="obj.row.menuIcon"/>
+          </template>
         </el-table-column>
         <el-table-column
             align="center"
@@ -94,7 +103,7 @@
             label="操作">
           <template v-slot="obj">
             <!--修改按钮-->
-            <el-button type="primary" icon="el-icon-edit" circle @click=findById(obj.row.id)></el-button>
+            <el-button type="primary" icon="el-icon-edit" circle @click.native.stop=findById(obj.row.id)></el-button>
             <el-popconfirm
                 style="margin-left: 5px"
                 confirm-button-text='确定'
@@ -105,7 +114,7 @@
                 @confirm="delById(obj.row.id)"
             >
               <!--删除按钮-->
-              <el-button slot="reference" type="danger" icon="el-icon-delete" circle></el-button>
+              <el-button slot="reference" type="danger" icon="el-icon-delete" @click.native.stop circle></el-button>
             </el-popconfirm>
           </template>
         </el-table-column>
@@ -126,92 +135,72 @@
 
     <!--    上传表单-->
     <el-dialog
-        title="管理员操作"
+        title="权限(菜单)操作"
         :visible.sync="createDialog"
         width="30%">
       <!--      内容-->
       <el-form ref="form" :rules="rules" :model="formData" size="mini" label-width="80px">
+        <el-form-item label="上级权限" prop="parentId">
+          <treeselect v-model="formData.parentId" :options="menuSelectList" :show-count="true"
+                      :normalizer="normalizer"/>
+        </el-form-item>
+
         <el-row :gutter="20">
           <el-col :span="12">
-            <el-form-item label="用户名" prop="adminAccount">
-              <el-input v-model="formData.adminAccount"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="姓名" prop="adminName">
-              <el-input v-model="formData.adminName"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="性别" prop="gender">
-              <el-radio-group v-model="formData.gender">
-                <el-radio :label="0">男</el-radio>
-                <el-radio :label="1">女</el-radio>
+            <el-form-item label="权限类型" prop="menuType">
+              <el-radio-group v-model="formData.menuType" size="mini">
+                <el-radio-button label="1">目录</el-radio-button>
+                <el-radio-button label="2">按钮</el-radio-button>
+                <el-radio-button label="3">菜单</el-radio-button>
               </el-radio-group>
             </el-form-item>
           </el-col>
+        </el-row>
+        <el-form-item label="按钮图标" prop="menuIcon" v-if="formData.menuType!=3">
+          <e-icon-picker v-model="formData.menuIcon" :options="options"/>
+        </el-form-item>
+        <el-row :gutter="20">
           <el-col :span="12">
-            <el-form-item label="身份证" prop="adminCode">
-              <el-input v-model="formData.adminCode"></el-input>
+            <el-form-item label="权限名称" prop="menuTitle">
+              <el-input v-model="formData.menuTitle"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="邮箱" prop="adminEmail">
-              <el-input v-model="formData.adminEmail"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="工资" prop="adminSalary">
-              <el-input v-model="formData.adminSalary"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="地址" prop="adminAddress">
-              <el-input v-model="formData.adminAddress"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="手机号" prop="adminPhone">
-              <el-input v-model="formData.adminPhone  "></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="是否激活" prop="isActive">
-              <el-switch
-                  v-model="formData.isActive"
-                  active-color="#13ce66"
-                  inactive-color="#ff4949">
-              </el-switch>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="分配角色" prop="roleName">
-              <el-select v-model="formData.roleIds" multiple placeholder="请选择身份">
-                <el-option
-                    v-for="role in roleList"
-                    :key="role.id"
-                    :label="role.roleName"
-                    :value="role.id">
-                </el-option>
-              </el-select>
+            <el-form-item label="权限排序" prop="sort">
+              <el-input-number style="width: 100%" v-model="formData.sort" controls-position="right"
+                               :min="1"></el-input-number>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row :gutter="20">
+          <el-col :span="12" v-if="formData.menuType!=3">
+            <el-form-item label="路由地址" prop="menuRouter">
+              <el-input v-model="formData.menuRouter"></el-input>
+            </el-form-item>
+          </el-col>
           <el-col :span="12">
-            <el-form-item label="头像" prop="adminAvatar">
-              <el-upload
-                  class="avatar-uploader"
-                  action="https://jsonplaceholder.typicode.com/posts/"
-                  :http-request="choseImg"
-                  :show-file-list="false"
-                  :before-upload="beforeAvatarUpload">
-                <img v-if="formData.adminAvatar" :src="formData.adminAvatar" class="avatar">
-                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-              </el-upload>
+            <el-form-item label="权限标识" prop="permSign" v-if="formData.menuType!=1">
+              <el-input v-model="formData.permSign"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
+        <el-row :gutter="20" v-if="formData.menuType==2">
+          <el-col :span="12">
+            <el-form-item label="组件名称" prop="componentName">
+              <el-input v-model="formData.componentName"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="组件地址" prop="componentPath">
+              <el-input v-model="formData.componentPath"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="20">
+
+        </el-row>
+
+
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="createDialog = false,cancel()" size="mini">取 消</el-button>

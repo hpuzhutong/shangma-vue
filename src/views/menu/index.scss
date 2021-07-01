@@ -53,3 +53,10 @@
   height: 50px;
   display: block;
 }
+
+.vue-treeselect__control{
+  height: 28px;
+}
+.vue-treeselect__placeholder vue-treeselect-helper-zoom-effect-off{
+  top: -3px;
+}

@@ -6,7 +6,7 @@
         <!--    顶部Logo-->
         <div class="aside-top">
           <img src="../../assets/logo.png" alt="">
-          <span style="color: #FFD700;font-size: x-large">怡红院</span>
+          <span style="font-size: x-large">尚马教育</span>
         </div>
 
         <!--    导航栏-->
