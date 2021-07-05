@@ -3,7 +3,7 @@
     <div class="loginConbox">
       <div class="header">
         <div class="logo">
-          <img src="./shangma.png" width="200px" height="80px">
+          <img src="../../assets/shangma.png" width="200px" height="80px">
         </div>
       </div>
       <div class="loginBox">

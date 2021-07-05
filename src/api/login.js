@@ -12,7 +12,7 @@ let login = {
      * 登录
      */
     doLogin(loginForm){
-        return tong.post(`login`,loginForm)
+        return tong.post(`login/login`,loginForm)
     },
 
     /**

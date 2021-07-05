@@ -94,7 +94,7 @@
         <el-table-column
             align="center"
             label="权限标识"
-            prop="perm_sign">
+            prop="permSign">
         </el-table-column>
         <el-table-column
             align="center"
