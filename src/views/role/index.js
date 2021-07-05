@@ -7,7 +7,7 @@ export default {
             //批量删除的id
             selectIds: [],
             //上传表单数据
-            roleFormDate: {
+            formData: {
                 // roleName: '',
                 // roleDesc: '',
             },
@@ -137,9 +137,9 @@ export default {
         addBtnClick() {
             this.createDialog = true;
             //清空表单验证效果
-            this.$nextTick(()=>{
+            // this.$nextTick(()=>{
                 this.$refs.form.resetFields();
-            })
+            // })
             //清空表单
             this.formData = {};
         },
@@ -219,13 +219,6 @@ export default {
             let menuIds = await role.getMenusByRoleId(this.roleId)
             this.$refs.tree.setCheckedKeys(menuIds);
         },
-
-
-
-        change () {
-            this.$forceUpdate()
-        },
-
 
     }
 

@@ -16,6 +16,22 @@ export default {
     },
 
     methods: {
+
+        async doLogin() {
+            //获得登录的token存放在localStorage中
+            let token = await login.doLogin(this.loginForm)
+            localStorage.setItem("token", token);
+
+            //将登陆者的权限信息存放在localStorage中
+            let response = await login.getUserMenuInfo();
+            let admin = response.admin;
+            localStorage.setItem("admin",JSON.stringify(admin))
+            let menuList = response.menuList;
+            localStorage.setItem("menuItems", JSON.stringify(menuList))
+
+            this.$router.push("/main/index")
+        },
+
         async getCode() {
             this.loginForm.uuid = this.getUUid();
             this.codeImg = await login.getCode(this.loginForm.uuid);
@@ -28,9 +44,7 @@ export default {
                 return v.toString(16);
             });
         },
-        async doLogin() {
-            await login.doLogin(this.loginForm)
-            this.$router.push("/main/index")
-        },
+
+
     },
 }

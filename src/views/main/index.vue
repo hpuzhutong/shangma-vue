@@ -13,107 +13,28 @@
         <!--表示可滚动的区域-->
         <el-scrollbar style="height: 93%">
           <el-menu
-              default-active="1"
+              default-active="4"
               background-color="#CCE8CF"
               class="el-menu-vertical-demo"
               router>
-            <el-menu-item index="/main/index">
-              <i class="el-icon-s-flag"></i>
-              <span slot="title">系统首页</span>
-            </el-menu-item>
-            <el-submenu index="2">
-              <template slot="title">
-                <i class="el-icon-menu"></i>
-                <span>系统管理</span>
-              </template>
-              <el-menu-item index="admin">
-                <i class="el-icon-position"></i>
-                <span slot="title">员工管理</span>
-              </el-menu-item>
-              <el-menu-item index="role">
-                <i class="el-icon-position"></i>
-                <span slot="title">角色管理</span>
-              </el-menu-item>
-              <el-menu-item index="menu">
-                <i class="el-icon-position"></i>
-                <span slot="title">权限管理</span>
-              </el-menu-item>
-              <el-menu-item index="corn">
-                <i class="el-icon-position"></i>
-                <span slot="title">定时任务</span>
-              </el-menu-item>
-              <el-submenu index="2-4">
-                <template slot="title">
-                  <i class="el-icon-menu"></i>
-                  <span>日志管理</span>
-                </template>
-                <el-menu-item index="2-4-1">
-                  <i class="el-icon-position"></i>
-                  <span slot="title">登陆日志</span>
-                </el-menu-item>
-                <el-menu-item index="2-4-2">
-                  <i class="el-icon-position"></i>
-                  <span slot="title">操作日志</span>
-                </el-menu-item>
-              </el-submenu>
-            </el-submenu>
-            <el-submenu index="3">
-              <template slot="title">
-                <i class="el-icon-menu"></i>
-                <span>商品相关</span>
-              </template>
-              <el-menu-item index="brand">
-                <i class="el-icon-position"></i>
-                <span slot="title" >品牌管理</span>
-              </el-menu-item>
-              <el-menu-item index="3-2">
-                <i class="el-icon-position"></i>
-                <span slot="title">分类管理</span>
-              </el-menu-item>
-              <el-menu-item index="3-3">
-                <i class="el-icon-position"></i>
-                <span slot="title">商品管理</span>
-              </el-menu-item>
-              <el-menu-item index="3-3">
-                <i class="el-icon-position"></i>
-                <span slot="title">赠品管理</span>
-              </el-menu-item>
-            </el-submenu>
-            <el-submenu index="4">
-              <template slot="title">
-                <i class="el-icon-menu"></i>
-                <span>订单相关</span>
-              </template>
-              <el-menu-item index="4-1">
-                <i class="el-icon-position"></i>
-                <span slot="title">购物车管理</span>
-              </el-menu-item>
-              <el-menu-item index="4-2">
-                <i class="el-icon-position"></i>
-                <span slot="title">订单管理</span>
-              </el-menu-item>
-            </el-submenu>
-            <el-submenu index="5">
-              <template slot="title">
-                <i class="el-icon-menu"></i>
-                <span>退货相关</span>
-              </template>
-              <el-menu-item index="5-1">
-                <i class="el-icon-position"></i>
-                <span slot="title">退货管理</span>
-              </el-menu-item>
-            </el-submenu>
+
+            <menu-components v-for="(item,index) in menuList" :key="index" :meizi="item"/>
+
           </el-menu>
         </el-scrollbar>
 
       </el-aside>
+
       <!--      头区域-->
       <el-container>
         <el-header height="60px">
+          <div class="adminInfo">
 
 
 
+          </div>
         </el-header>
+
         <!--      中间区域-->
         <el-main>
           <div class="body-box">
@@ -126,14 +47,23 @@
 </template>
 
 <script>
-
+import menuComponents from "@/components/menuComponents";
 
 export default {
+  components: {menuComponents},
   name: "index",
-  methods: {
+  data() {
+    return {
+      menuList: [],
+      adminInfo: ``,
+    }
+  },
+  created() {
+    this.menuList = JSON.parse(localStorage.getItem("menuItems"));
+    this.adminInfo = JSON.parse(localStorage.getItem("admin"));
 
-
-  }
+  },
+  methods: {}
 }
 </script>
 
@@ -213,5 +143,13 @@ export default {
 .el-container {
   height: 100%;
 
+}
+
+.adminInfo {
+  margin-top: 10px;
+  margin-left: 1395px;
+  width: 250px;
+  height: 50px;
+  background-color: #FFFFFF;
 }
 </style>

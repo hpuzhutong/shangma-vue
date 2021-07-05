@@ -313,7 +313,7 @@
 
 <script src="./index.js"></script>
 
-<style long="scss">
+<style lang="scss">
 /*<!--直接src引入报错-->*/
-@import "index.scss";
+@import "./index.scss";
 </style>

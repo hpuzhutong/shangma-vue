@@ -15,6 +15,13 @@ let login = {
         return tong.post(`login`,loginForm)
     },
 
+    /**
+     * 获取用户的菜单权限列表
+     */
+    getUserMenuInfo(){
+        return tong.get(`login/getMenuList`)
+    }
+
 
 
 

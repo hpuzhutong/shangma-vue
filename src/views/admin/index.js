@@ -144,7 +144,6 @@ export default {
         },
         //删除单个
         async delById(id) {
-            // console.log(id)
             await admin.delById(id);
             this.searchPage();
         },
@@ -160,10 +159,7 @@ export default {
         addBtnClick() {
             this.createDialog = true;
             //清空表单验证效果  这样写不会出现resetFields错误
-            this.$nextTick(()=>{
-                this.$refs.form.resetFields();
-            })
-            // this.$refs.form.resetFields();
+            this.$refs.form.resetFields();
             //清空表单
             this.formData = {};
 

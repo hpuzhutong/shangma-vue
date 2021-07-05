@@ -180,9 +180,7 @@ export default {
         addBtnClick() {
             this.createDialog = true;
             //清空表单验证效果
-            this.$nextTick(()=>{
                 this.$refs.form.resetFields();
-            })
             //清空表单
             this.formData = {
                 parentId: 0,
