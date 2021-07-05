@@ -180,7 +180,9 @@ export default {
         addBtnClick() {
             this.createDialog = true;
             //清空表单验证效果
-            this.$refs.form.resetFields();
+            this.$nextTick(()=>{
+                this.$refs.form.resetFields();
+            })
             //清空表单
             this.formData = {
                 parentId: 0,
@@ -214,11 +216,12 @@ export default {
         },
         cancel() {
             //清空表单验证效果
-            this.$refs.form.resetFields();
+            this.$nextTick(()=>{
+                this.$refs.form.resetFields();
+            })
         },
         // findById  编辑按钮
         async findById(id) {
-            console.log(id)
             this.createDialog = true;
             this.formData = await menu.findById(id);
         },
@@ -249,7 +252,6 @@ export default {
          */
         rowClick(row) {
             this.selectId = row.id
-            console.log(row)
         }
 
     }

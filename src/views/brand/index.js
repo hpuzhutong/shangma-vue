@@ -96,8 +96,8 @@ export default {
             this.tableData = response.data;
         },
         //查询按钮
-        searchUser(){
-            if (this.searchForm.brandDesc || this.searchForm.brandName){
+        searchUser() {
+            if (this.searchForm.brandDesc || this.searchForm.brandName) {
                 //不设置会出现搜索bug
                 this.searchForm.currentPage = 1;
             }
@@ -142,7 +142,9 @@ export default {
         addBtnClick() {
             this.createDialog = true;
             //清空表单验证效果
-            this.$refs.form.resetFields();
+            this.$nextTick(() => {
+                this.$refs.form.resetFields();
+            })
             //清空表单
             this.formData = {};
         },

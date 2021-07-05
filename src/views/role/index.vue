@@ -137,12 +137,12 @@
         :visible.sync="createDialog"
         width="30%">
       <!--      内容-->
-      <el-form ref="form" :rules="rules" :model="formData" size="mini" label-width="80px">
+      <el-form ref="form" :rules="rules" :model="roleFormDate" size="mini" label-width="80px">
         <el-form-item label="职位名称" prop="roleName">
-          <el-input v-model="formData.roleName"></el-input>
+          <el-input v-model="roleFormDate.roleName"></el-input>
         </el-form-item>
         <el-form-item label="职位描述" prop="roleDesc">
-          <el-input type="textarea" v-model="formData.roleDesc"></el-input>
+          <el-input type="textarea" v-model="roleFormDate.roleDesc"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -155,7 +155,7 @@
 
 <script src="./index.js"></script>
 
-<style long="scss">
+<style lang="scss" scoped>
 /*<!--直接src引入报错-->*/
-@import "index.scss";
+@import "./index.scss";
 </style>

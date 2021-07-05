@@ -45,6 +45,11 @@ const routes = [
                 name: '菜单（权限）管理',
                 component: () => import('../views/menu/index.vue')
             },
+            {
+                path: 'corn',
+                name: '定时任务',
+                component: () => import('../views/corn/index.vue')
+            },
         ]
     }
 ]
@@ -55,4 +60,4 @@ const router = new VueRouter({
     routes
 })
 
-export default router
+export default router;

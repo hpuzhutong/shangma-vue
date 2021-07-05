@@ -19,9 +19,9 @@ tong.interceptors.request.use(function (config) {
 // 响应的拦截器  当请求成功之后 先走这个拦截器  在走对应的回调函数
 //对应的回掉函数的中的返回值  就由有这个地方的return的
 tong.interceptors.response.use(function (response) {
-    // console.log(response)
     let {status,message,data} = response.data;
-    if (status == 2000) {
+    if (status == 2000 || status == 5007) {
+        console.log(data)
         return data;
     }else {
         Notification.error(message)

@@ -7,9 +7,9 @@ export default {
             //批量删除的id
             selectIds: [],
             //上传表单数据
-            formData: {
-                //上传logo
-
+            roleFormDate: {
+                // roleName: '',
+                // roleDesc: '',
             },
             //搜索表单数据
             searchForm: {
@@ -87,6 +87,8 @@ export default {
             let response = await role.searchPage(this.searchForm);
             this.total = response.total;
             this.tableData = response.data;
+            //清空权限
+            this.$refs.tree.setCheckedKeys([]);
         },
         //查询按钮
         searchUser() {
@@ -135,7 +137,9 @@ export default {
         addBtnClick() {
             this.createDialog = true;
             //清空表单验证效果
-            this.$refs.form.resetFields();
+            this.$nextTick(()=>{
+                this.$refs.form.resetFields();
+            })
             //清空表单
             this.formData = {};
         },
@@ -205,17 +209,22 @@ export default {
             });
             //刷新页面去除选中的行  清空权限
             this.searchPage()
-            this.$refs.tree.setCheckedKeys([]);
+
         },
 
         /*
         获取角色对应的权限
          */
         async getMenusByRoleId() {
-            this.menuList = await role.getMenusByRoleId(this.roleId)
+            let menuIds = await role.getMenusByRoleId(this.roleId)
+            this.$refs.tree.setCheckedKeys(menuIds);
+        },
 
-            this.$refs.tree.setCheckedKeys();
-        }
+
+
+        change () {
+            this.$forceUpdate()
+        },
 
 
     }

@@ -110,7 +110,6 @@ export default {
         //条件分页查询
         async searchPage() {
             let response = await admin.searchPage(this.searchForm);
-            console.log(response.data.gender)
             this.total = response.total;
             this.tableData = response.data;
         },
@@ -160,8 +159,11 @@ export default {
         //点击新建按钮
         addBtnClick() {
             this.createDialog = true;
-            //清空表单验证效果
-            this.$refs.form.resetFields();
+            //清空表单验证效果  这样写不会出现resetFields错误
+            this.$nextTick(()=>{
+                this.$refs.form.resetFields();
+            })
+            // this.$refs.form.resetFields();
             //清空表单
             this.formData = {};
 
@@ -227,8 +229,7 @@ export default {
         async getAllRoles(){
             let allRole =  await admin.getAllRoles()
             this.roleList = allRole;
-        }
-
+        },
 
     }
 

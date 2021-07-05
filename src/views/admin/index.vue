@@ -40,8 +40,9 @@
     <div class="exec-box" style="margin: 10px 0px 10px 0px ">
       <el-button-group>
         <el-button size="mini" type="success" @click=addBtnClick>新建</el-button>
-        <el-button size="mini" type="success">导入Excel</el-button>
-        <el-button size="mini" type="warning">导出Excel</el-button>
+        <el-button size="mini" type="warning">导入Excel</el-button>
+        <a class="el-button el-button--success el-button--mini" style="color: #FFFFFF;text-decoration: none"
+           href="http://localhost:9999/admin/exportExcel">导出Excel</a>
       </el-button-group>
       <el-popconfirm
           style="margin: 2px 0px 0px 5px"

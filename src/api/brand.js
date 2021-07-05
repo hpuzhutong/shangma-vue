@@ -4,8 +4,6 @@ let brand = {
 
     /**
      * 条件分页查询
-     * @param entity
-     * @returns {Promise<AxiosResponse<any>>}
      */
     searchPage(entity) {
         return tong.get(`brand/searchPage`, {params: entity})
@@ -17,8 +15,6 @@ let brand = {
 
     /**
      * 新建一个品牌
-     * @param entity
-     * @returns {Promise<AxiosResponse<any>>}
      */
     addBrand(entity) {
         return tong.post(`brand`,  entity)
@@ -26,8 +22,6 @@ let brand = {
 
     /**
      * 通过id单个删除
-     * @param val
-     * @returns {Promise<AxiosResponse<any>>}
      */
     delById(id) {
         return tong.delete(`brand/${id}`,)
@@ -35,8 +29,6 @@ let brand = {
 
     /**
      * 批量删除
-     * @param ids
-     * @returns {Promise<AxiosResponse<any>>}
      */
     batchDel(ids) {
         return tong.delete(`brand/batch/${ids}`)
@@ -44,7 +36,6 @@ let brand = {
 
     /**
      * 修改品牌信息
-     * @param formData
      */
     updateBrand(entity) {
         return tong.put(`brand`,entity)
