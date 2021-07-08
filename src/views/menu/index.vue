@@ -139,7 +139,7 @@
       <!--      内容-->
       <el-form ref="form" :rules="rules" :model="formData" size="mini" label-width="80px">
         <el-form-item label="上级权限" prop="parentId">
-          <treeselect v-model="formData.parentId" :options="menuSelectList" :show-count="true"
+          <treeSelect v-model="formData.parentId" :options="menuSelectList" :show-count="true"
                       :normalizer="normalizer"/>
         </el-form-item>
 

@@ -40,22 +40,21 @@
     <div class="exec-box" style="margin: 10px 0px 10px 0px ">
       <el-button-group>
         <el-button size="mini" type="success" @click=addBtnClick>新建</el-button>
-        <el-button size="mini" type="warning">导入Excel</el-button>
-        <a class="el-button el-button--success el-button--mini" style="color: #FFFFFF;text-decoration: none"
+        <a class="el-button el-button--warning el-button--mini" style="color: #FFFFFF;text-decoration: none"
            href="http://localhost:9999/admin/exportExcel">导出Excel</a>
+        <el-popconfirm
+            style="margin: 2px 0px 0px 5px"
+            confirm-button-text='确定'
+            cancel-button-text='不用了'
+            icon="el-icon-info"
+            icon-color="red"
+            title="确定删除这么多项吗？"
+            @confirm="batchDel"
+        >
+          <el-button type="danger"></el-button>
+          <el-button slot="reference" type="danger" size="mini" :disabled="selectIds.length<=0">批量删除</el-button>
+        </el-popconfirm>
       </el-button-group>
-      <el-popconfirm
-          style="margin: 2px 0px 0px 5px"
-          confirm-button-text='确定'
-          cancel-button-text='不用了'
-          icon="el-icon-info"
-          icon-color="red"
-          title="确定删除这么多项吗？"
-          @confirm="batchDel"
-      >
-        <el-button type="danger"></el-button>
-        <el-button slot="reference" type="danger" size="mini" :disabled="selectIds.length<=0">批量删除</el-button>
-      </el-popconfirm>
     </div>
 
     <!--      数据表格-->

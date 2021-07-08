@@ -13,6 +13,7 @@
     "core-js": "^3.6.5",
     "e-icon-picker": "^1.1.1",
     "element-ui": "^2.15.3",
+    "js-file-download": "^0.4.12",
     "normalize.css": "^8.0.1",
     "video.js": "^7.13.3",
     "vue": "^2.6.11",
@@ -30,6 +31,7 @@
     "eslint-plugin-vue": "^6.2.2",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
+    "vue-particles": "^1.0.9",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {

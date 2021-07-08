@@ -1,14 +1,14 @@
 import menu from "@/api/menu";
 import {uploadImg} from "@/api/upload";
 // import the component
-import Treeselect from '@riophae/vue-treeselect'
+import TreeSelect from '@riophae/vue-treeselect'
 // import the styles
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 
 
 export default {
     // 注册treeSelect组件
-    components: {Treeselect},
+    components: {TreeSelect},
 
     name: "index",
     data() {
@@ -57,6 +57,7 @@ export default {
             //所选时间
             choseDate: '',
             tableData: [],
+            flag:'',
             total: 0,
             search: '',
             //开启关闭上传模态框
@@ -124,9 +125,10 @@ export default {
         //条件分页查询
         async searchPage() {
             let response = await menu.searchPage(this.searchForm);
-            console.log(response.data.gender)
             this.total = response.total;
             this.tableData = response.data;
+
+            this.flag = this.tableData.length;
 
             /**
              * 获得所有的树形数据
@@ -170,6 +172,9 @@ export default {
         async delById(id) {
             // console.log(id)
             await menu.delById(id);
+            if (this.flag === 1){
+                this.searchForm.currentPage--;
+            }
             this.searchPage();
         },
         // async batchDel() {

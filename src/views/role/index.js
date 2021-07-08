@@ -47,6 +47,7 @@ export default {
             //所选时间
             choseDate: '',
             tableData: [],
+            flag:'',
             total: 0,
             search: '',
             //开启关闭上传模态框
@@ -87,6 +88,8 @@ export default {
             let response = await role.searchPage(this.searchForm);
             this.total = response.total;
             this.tableData = response.data;
+
+            this.flag = this.tableData.length;
             //清空权限
             this.$refs.tree.setCheckedKeys([]);
         },
@@ -123,6 +126,9 @@ export default {
         async delById(id) {
             // console.log(id)
             await role.delById(id);
+            if (this.flag === 1){
+                this.searchForm.currentPage--;
+            }
             this.searchPage();
         },
         //删除多个
@@ -131,6 +137,13 @@ export default {
         },
         async batchDel() {
             await role.batchDel(this.selectIds);
+            if (this.flag === this.selectIds.length){
+                if (this.searchForm.currentPage === 1){
+                    this.searchForm.currentPage++;
+                }else{
+                    this.searchForm.currentPage--;
+                }
+            }
             this.searchPage();
         },
         //点击新建按钮

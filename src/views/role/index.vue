@@ -28,18 +28,19 @@
     <div class="exec-box" style="margin: 10px 0px 10px 0px ">
       <el-button-group>
         <el-button size="mini" type="success" @click=addBtnClick>新建</el-button>
+
+        <el-popconfirm
+            style="margin: 2px 0px 0px 5px"
+            confirm-button-text='确定'
+            cancel-button-text='不用了'
+            icon="el-icon-info"
+            icon-color="red"
+            title="确定删除这么多项吗？"
+            @confirm="batchDel"
+        >
+          <el-button slot="reference" type="danger" size="mini" :disabled="selectIds.length<=0">批量删除</el-button>
+        </el-popconfirm>
       </el-button-group>
-      <el-popconfirm
-          style="margin: 2px 0px 0px 5px"
-          confirm-button-text='确定'
-          cancel-button-text='不用了'
-          icon="el-icon-info"
-          icon-color="red"
-          title="确定删除这么多项吗？"
-          @confirm="batchDel"
-      >
-        <el-button slot="reference" type="danger" size="mini" :disabled="selectIds.length<=0">批量删除</el-button>
-      </el-popconfirm>
     </div>
 
 
@@ -90,7 +91,7 @@
                     @confirm="delById(obj.row.id)"
                 >
                   <!--删除按钮-->
-                  <el-button slot="reference" type="danger" size="mini" @click.native.stop >删除</el-button>
+                  <el-button slot="reference" type="danger" size="mini" @click.native.stop>删除</el-button>
                 </el-popconfirm>
               </template>
             </el-table-column>
@@ -114,7 +115,8 @@
         <el-card class="box-card" style="width: 90%;margin-left: 30px" shadow="never">
           <div slot="header" class="clearfix">
             <strong>分配权限</strong>
-            <el-button style="float: right; padding: 3px 0" type="text" @click="setRoleMenu" :plain="true">点击分配权限</el-button>
+            <el-button style="float: right; padding: 3px 0" type="text" @click="setRoleMenu" :plain="true">点击分配权限
+            </el-button>
           </div>
           <el-scrollbar style="height: 500px">
             <el-tree

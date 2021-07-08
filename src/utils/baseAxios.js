@@ -27,7 +27,7 @@ tong.interceptors.response.use(function (response) {
     if (status == 2000 || status == 5007) {
         return data;
     } else if (status == 5008) {
-        router.push("/login")
+        router.push("/")  //  到login页面
     } else {
         Notification.error(message)
         //阻止代码向下执行

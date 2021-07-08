@@ -1,56 +1,58 @@
 <template>
-  <div class="main-box">
-    <!--首页面-->
-    <el-container>
-      <el-aside width="230px">
-        <!--    顶部Logo-->
-        <div class="aside-top">
-          <img src="../../assets/logo.png" alt="">
-          <span style="font-size: x-large;color: black">尚马教育</span>
-        </div>
 
-        <!--    导航栏-->
-        <!--表示可滚动的区域-->
-        <el-scrollbar style="height: 93%">
-          <el-menu
-              default-active="4"
-              background-color="#E9EEF3"
-              class="el-menu-vertical-demo"
-              text-color="black"
-              router>
-
-            <menu-components v-for="(item,index) in menuList" :key="index" :meizi="item"/>
-
-          </el-menu>
-        </el-scrollbar>
-
-      </el-aside>
-
-      <!--      头区域-->
+    <div class="main-box">
+      <!--首页面-->
       <el-container>
-        <el-header height="60px" :model="adminInfo">
-          <div class="adminInfo">
-            <div class="img">
-              <img :src="adminInfo.adminAvatar" alt="" height="40px" width="40px">
-            </div>
-            <div class="name">
-              <span>欢迎您：{{ adminInfo.adminName }}</span>
-            </div>
-            <div class="exit">
-              <el-button type="info" size="mini" plain @click="exitLogin">退出</el-button>
-            </div>
+        <el-aside width="230px">
+          <!--    顶部Logo-->
+          <div class="aside-top">
+            <img src="../../assets/logo.png" alt="">
+            <span style="font-size: x-large;color: black">尚马教育</span>
           </div>
-        </el-header>
 
-        <!--      中间区域-->
-        <el-main>
-          <div class="body-box">
-            <router-view/>
-          </div>
-        </el-main>
+          <!--    导航栏-->
+          <!--表示可滚动的区域-->
+          <el-scrollbar style="height: 93%">
+            <el-menu
+                default-active="4"
+                background-color="#E9EEF3"
+                class="el-menu-vertical-demo"
+                text-color="black"
+                router>
+
+              <menu-components v-for="(item,index) in menuList" :key="index" :meizi="item"/>
+
+            </el-menu>
+          </el-scrollbar>
+
+        </el-aside>
+
+        <!--      头区域-->
+        <el-container>
+          <el-header height="60px" :model="adminInfo">
+            <div class="adminInfo">
+              <div class="img">
+                <img :src="adminInfo.adminAvatar" alt="" height="40px" width="40px">
+              </div>
+              <div class="name">
+                <span>欢迎您：{{ adminInfo.adminName }}</span>
+              </div>
+              <div class="exit">
+                <el-button type="info" size="mini" plain @click="exitLogin">退出</el-button>
+              </div>
+            </div>
+          </el-header>
+
+          <!--      中间区域-->
+          <el-main>
+            <div class="body-box">
+              <router-view/>
+            </div>
+          </el-main>
+        </el-container>
       </el-container>
-    </el-container>
-  </div>
+    </div>
+
 </template>
 
 <script>
@@ -77,7 +79,7 @@ export default {
   methods: {
     exitLogin() {
       localStorage.clear();
-      router.push("/login")
+      router.push("/")
     }
   }
 }
@@ -134,11 +136,6 @@ export default {
   .el-scrollbar__wrap {
     overflow-x: hidden;
   }
-
-  //.el-scrollbar{
-  //  height: 100%;
-  //}
-
 }
 
 .el-main {
@@ -180,4 +177,5 @@ export default {
   margin-top: -10px;
   float: left;
 }
+
 </style>

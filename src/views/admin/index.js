@@ -6,7 +6,7 @@ export default {
     data() {
         return {
             //角色列表
-            roleList:[],
+            roleList: [],
             //批量删除的id
             selectIds: [],
             //上传表单数据
@@ -50,6 +50,7 @@ export default {
             //所选时间
             choseDate: '',
             tableData: [],
+            flag: '',  //设置标记  用于记录请求返回后的tableData的length大小
             total: 0,
             search: '',
             //开启关闭上传模态框
@@ -104,14 +105,19 @@ export default {
     created() {
         this.searchPage();
         this.getAllRoles();
+
     },
 
     methods: {
+
+
         //条件分页查询
         async searchPage() {
             let response = await admin.searchPage(this.searchForm);
             this.total = response.total;
             this.tableData = response.data;
+
+            this.flag = this.tableData.length;   //将请求返回后的tableData.length赋值给flag
         },
         //查询按钮
         searchUser() {
@@ -145,6 +151,9 @@ export default {
         //删除单个
         async delById(id) {
             await admin.delById(id);
+            if (this.flag === 1) {
+                this.searchForm.currentPage--;
+            }
             this.searchPage();
         },
         //删除多个
@@ -153,6 +162,13 @@ export default {
         },
         async batchDel() {
             await admin.batchDel(this.selectIds);
+            if (this.flag === this.selectIds.length) {
+                if (this.searchForm.currentPage === 1) {
+                    this.searchForm.currentPage++;
+                } else {
+                    this.searchForm.currentPage--;
+                }
+            }
             this.searchPage();
         },
         //点击新建按钮
@@ -162,7 +178,6 @@ export default {
             this.$refs.form.resetFields();
             //清空表单
             this.formData = {};
-
 
 
         },
@@ -201,7 +216,7 @@ export default {
 
         //-----------------------------上传模态框---------------------------------
         //验证图片的格式与大小
-        beforeAvatarUpload(file){
+        beforeAvatarUpload(file) {
             const isJPG = file.type === 'image/jpeg' || file.type === 'image/png';
             const isLt2M = file.size / 1024 / 1024 < 2;
             if (!isJPG) {
@@ -222,10 +237,11 @@ export default {
         /**
          * 获取所有角色
          */
-        async getAllRoles(){
-            let allRole =  await admin.getAllRoles()
+        async getAllRoles() {
+            let allRole = await admin.getAllRoles()
             this.roleList = allRole;
         },
+
 
     }
 
